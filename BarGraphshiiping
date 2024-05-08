@@ -1,0 +1,35 @@
+#  selcet top 1000 form ShippingData.csv
+
+import pandas as pd
+
+# Load the data
+data = pd.read_csv('/content/ShippingData.csv')
+
+# Select the top 1000 rows
+top_1000 = data.head(1000)
+
+# Print the top 1000 rows
+print(top_1000)
+
+
+  import matplotlib.pyplot as plt
+  #: create a bar graph about delivery_status     
+
+data = pd.read_csv('/content/ShippingData.csv')
+
+top_1000 = data.head(1000)
+
+# Count the number of shipments for each delivery status
+delivery_status_counts = top_1000['Delivery_Status'].value_counts()
+
+# Create the bar chart
+plt.figure(figsize=(12, 6))
+plt.bar(delivery_status_counts.index, delivery_status_counts.values, color=['blue', 'orange', 'red', 'green', 'purple'])
+
+# Add labels and title
+plt.xlabel('Delivery Status')
+plt.ylabel('Number of Shipments')
+plt.title('Delivery Status Bar Chart')
+
+# Show the chart
+plt.show()
