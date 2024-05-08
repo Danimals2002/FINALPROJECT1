@@ -1,0 +1,59 @@
+SELECT TOP 1000 *
+FROM OrderData;
+
+SELECT
+Benefit_Per_Order,
+    Order_Country,
+    Order_Profit_Per_Order,
+    Order_Region,
+    Order_Status,
+    Sales
+FROM
+    OrderData;
+
+SELECT Order_Status, SUM(Sales) AS TotalSales
+FROM OrderData
+GROUP BY Order_Status
+ORDER BY Order_Status;
+
+ -- Query to aggregate numeric columns for mapping or visualization
+SELECT
+    Order_Region,
+    Order_Status,
+    SUM(CAST(Order_Profit_Per_Order AS decimal)) AS TotalProfit,
+    SUM(CAST(Sales AS decimal)) AS TotalSales
+FROM
+    OrderData
+GROUP BY
+    Order_Region, Order_Status
+ORDER BY
+    Order_Region, Order_Status;
+
+SELECT
+    Order_Region
+FROM
+    OrderData
+GROUP BY
+    Order_Region
+ORDER BY
+    Order_Region;
+
+SELECT
+    Order_Region,
+    SUM(CASE WHEN Order_Status = 'CANCELED' THEN 1 ELSE 0 END) AS CANCELED,
+    SUM(CASE WHEN Order_Status = 'CLOSED' THEN 1 ELSE 0 END) AS CLOSED,
+    SUM(CASE WHEN Order_Status = 'COMPLETE' THEN 1 ELSE 0 END) AS COMPLETE,
+    SUM(CASE WHEN Order_Status = 'ON_HOLD' THEN 1 ELSE 0 END) AS ON_HOLD,
+    SUM(CASE WHEN Order_Status = 'PAYMENT_REVIEW' THEN 1 ELSE 0 END) AS PAYMENT_REVIEW,
+    SUM(CASE WHEN Order_Status = 'PENDING' THEN 1 ELSE 0 END) AS PENDING,
+    SUM(CASE WHEN Order_Status = 'PENDING_PAYMENT' THEN 1 ELSE 0 END) AS PENDING_PAYMENT,
+    SUM(CASE WHEN Order_Status = 'PROCESSING' THEN 1 ELSE 0 END) AS PROCESSING,
+    SUM(CASE WHEN Order_Status = 'SUSPECTED_FRAUD' THEN 1 ELSE 0 END) AS SUSPECTED_FRAUD
+FROM
+    OrderData
+GROUP BY
+    Order_Region
+ORDER BY
+    Order_Region;
+
+ 
